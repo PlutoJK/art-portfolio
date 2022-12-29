@@ -22,7 +22,7 @@ form.addEventListener('submit', async (event) => {
   });
 
   if (response.ok) {
-    const image = document.createElement('img';
+    const image = document.createElement('img');
     image.src = imageUrl;
     imagesContainer.appendChild(image);
   } else {
