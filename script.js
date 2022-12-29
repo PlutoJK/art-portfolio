@@ -7,7 +7,7 @@ form.addEventListener('submit', async (event) => {
   const imageUrl = document.getElementById('image-url').value;
   const imageName = imageUrl.split('/').pop();
   const apiUrl = 'https://api.github.com/repos/PlutoJK/art-portfolio/contents/' + imageName;
-  const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const corsProxyUrl = 'https://cors.isomorphic-git.org/';
 
   const response = await fetch(corsProxyUrl + apiUrl, {
     method: 'PUT',
