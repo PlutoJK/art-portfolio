@@ -29,4 +29,3 @@ form.addEventListener('submit', async (event) => {
     alert('Error uploading image: ' + response.statusText);
   }
 });
-
