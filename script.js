@@ -30,3 +30,22 @@ form.addEventListener('submit', async (event) => {
   });
 
  
+const commit = await octokit.git.createCommit({
+  owner: 'PlutoJK',
+  repo: 'art-portfolio',
+  message: 'Add image ' + imageName,
+  tree: tree.data.sha,
+  parents: []
+});
+
+const reference = await octokit.git.createRef({
+  owner: 'PlutoJK',
+  repo: 'art-portfolio',
+  ref: 'refs/heads/master',
+  sha: commit.data.sha
+});
+
+const image = document.createElement('img');
+image.src = imageUrl;
+imagesContainer.appendChild(image);
+});
