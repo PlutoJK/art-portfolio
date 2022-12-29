@@ -1,3 +1,5 @@
+const octokit = new GitHub();
+
 const form = document.getElementById('add-image-form');
 const imagesContainer = document.getElementById('images');
 
@@ -6,23 +8,25 @@ form.addEventListener('submit', async (event) => {
 
   const imageUrl = document.getElementById('image-url').value;
   const imageName = imageUrl.split('/').pop();
-  const apiUrl = 'https://api.github.com/repos/PlutoJK/art-portfolio/contents/' + imageName;
 
-  const response = await fetch(apiUrl, {
-    method: 'PUT',
-    headers: {
-      'Authorization': 'Bearer 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',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'message': 'Add image ' + imageName,
-      'content': btoa(await (await fetch(imageUrl)).text())
-    })
+  const imageBlob = await octokit.git.createBlob({
+    owner: 'PlutoJK',
+    repo: 'art-portfolio',
+    content: btoa(await (await fetch(imageUrl)).text()),
+    encoding: 'base64'
   });
 
-  if (response.ok) {
-    const image = document.createElement('img');
-    image.src = imageUrl;
-    imagesContainer.appendChild(image);
-  }
-});
+  const tree = await octokit.git.createTree({
+    owner: 'PlutoJK',
+    repo: 'art-portfolio',
+    tree: [
+      {
+        path: imageName,
+        mode: '100644',
+        type: 'blob',
+        sha: imageBlob.data.sha
+      }
+    ]
+  });
+
+ 
