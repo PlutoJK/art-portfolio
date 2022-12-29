@@ -11,7 +11,7 @@ form.addEventListener('submit', async (event) => {
   const response = await fetch(apiUrl, {
     method: 'PUT',
     headers: {
-      'Authorization': 'Bearer <your-personal-access-token>',
+      'Authorization': 'Bearer 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',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
